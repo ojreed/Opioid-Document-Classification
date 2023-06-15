@@ -6,10 +6,16 @@ This purpose of this repository is to train, test, and implement text classifica
 
 # Usage: 
 ## Deployment
+
+[INSERT TEXT]
+
 ## Training
+In order to train a new model one must run one of the many python files highlighted in the "Training Code" section or referenced in the "File Format Meaning" section of the README. This code will train a model with the following characteristics. To expidite the training process, if the user has access to the ARCH compute cluster, they may submit a job script formatted following the format of the .sh files in the "ARCH script roles" section. The header of these files should remain the same but the user can change the python files that are executed by changing the file names and user inputs at the bottom.
 
 
-## Training Document Roles:
+# Doc Info: 
+
+## ARCH Script Roles:
 
 ### evaluation_5x.sh
 This script executes 5 training runs for each of the SB RNL and Mixed label sets in order to get average model statistics with random train/test splits
@@ -23,8 +29,12 @@ This script exectues a set of training runs with different hyper parameters to f
 ### Mod_stats.py
 This file generates a real x predicted matrix for a trained model and tokenizer trained on a mixed labelset. The "signle" suffix version does the same for a single label set.
 
+## Training Code
+
 ### Mixed_Labeled_BioBERT.py
 Specific file for training and testing a BioBERT model with 25 epochs and a learning rate of 1e-04 on a the mixed label set. 
+
+## Suport Files
 
 ### Opioid_Classification_HF
 The `Opioid_Classification_HF` is the main Jupyter Notebook that trains a Hugging Face model on the target dataset. To change the model or tokenizer, simply replace the pretrained layer of `HFClass` and the tokenizer. The training settings can also be adjusted within the notebook.
@@ -37,6 +47,8 @@ The `Data Functions` directory contains helper functions for prepping the data.
 
 ### Pull Text from ID
 The `Pull Text from ID` function takes an ID as input and returns the text associated with that ID from an online database.
+
+## File Format Meaning:
 
 ### File Format: R suffix
 An R at the end of a file name means it is a special version of that file that uses a random rather than seeded train/test split 
