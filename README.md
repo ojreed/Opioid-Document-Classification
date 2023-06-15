@@ -1,6 +1,13 @@
 # Opioid Classification
 
-This repository contains a Jupyter Notebook file that uses Hugging Face models to train on a custom dataset for opioid classification. 
+This purpose of this repository is to train, test, and implement text classification models for the OIDA dataset. Training documents and trained models are linked here:
+
+[INSERT LINK]
+
+### Usage: 
+## Deployment
+## Training
+
 
 ### Training Document Roles:
 
