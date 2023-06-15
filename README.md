@@ -6,8 +6,7 @@ This purpose of this repository is to train, test, and implement text classifica
 
 # Usage: 
 ## Deployment
-
-[INSERT TEXT]
+In order to use our model in order to get a predicted topic for a .txt file or user inputed text please run the main.py file. This code will walk the user through the steps needed to obtain this prediction. In order to change the model used change the file names in the code of main.py for the tokenizer and the model imported by pkl.
 
 ## Training
 In order to train a new model one must run one of the many python files highlighted in the "Training Code" section or referenced in the "File Format Meaning" section of the README. This code will train a model with the following characteristics. To expidite the training process, if the user has access to the ARCH compute cluster, they may submit a job script formatted following the format of the .sh files in the "ARCH script roles" section. The header of these files should remain the same but the user can change the python files that are executed by changing the file names and user inputs at the bottom.

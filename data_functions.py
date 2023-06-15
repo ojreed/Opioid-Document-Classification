@@ -46,6 +46,21 @@ def dual_label_csv():
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label 1': raw_y, 'Raw Label 2': raw_z}), f)
     return
 
+def dual_label_csv_1500():
+    full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_1500_Samples.csv', data_dir='./opi/500_samples',num_labels=2,returnLabel=2)
+    print("Init Full Dataset")
+    raw_X = []
+    raw_y = []
+    raw_z = []
+    for item in full_dataset:
+        raw_X.append(item[0])
+        raw_y.append(item[1])
+        raw_z.append(item[2])
+    with open('./CSV_raw_dual_1500.pkl', 'wb') as f:
+        pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label 1': raw_y, 'Raw Label 2': raw_z}), f)
+    print(len(raw_X))
+    return
+
 def load_train_dataset():
     with open('./train_dataset.pkl', 'rb') as f:
         train_dataset = pickle.load(f)
@@ -160,3 +175,8 @@ def load_val_raw():
 # init_data_trad()
 # init_data_same()
 # dual_label_csv()
+# dual_label_csv_1500()
+import pickle
+with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+    df = pickle.load(f)
+print(df.head)
