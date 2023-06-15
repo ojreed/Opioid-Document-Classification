@@ -1,0 +1,12 @@
+# ignore node_modules folder
+node_modules/
+models/
+Results/
+opi/
+opi_2/
+
+# ignore wandb folder
+# wandb/
+# ignore .env files
+.env
+.log
