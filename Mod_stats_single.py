@@ -57,7 +57,7 @@ def encode_cat(x):
 # df['ENCODE_CAT_2'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
 
 
-df['ENCODE_CAT'] = df['Raw Label 1'].apply(lambda x: encode_cat(x))
+df['ENCODE_CAT'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
 
 # %% [markdown]
 # Training Settings
@@ -70,7 +70,7 @@ VALID_BATCH_SIZE = 15
 
 
 # Load the tokenizer using pickle
-with open('./Results/s2_1000_vocab_distilbert.bin', 'rb') as handle:
+with open('./models/s2_1000_vocab_distilbert.bin', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased')
@@ -170,7 +170,7 @@ model.to(device)
 
 
 # Load the PyTorch model from the .bin file
-model = torch.load('./Results/s2_1000_pytorch_distilbert.bin',map_location=torch.device('cpu'))
+model = torch.load('./models/s2_1000_pytorch_distilbert.bin',map_location=torch.device('cpu'))
 
 
 # %% [markdown]

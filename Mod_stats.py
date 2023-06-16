@@ -69,7 +69,7 @@ VALID_BATCH_SIZE = 15
 
 
 # Load the tokenizer using pickle
-with open('./Results/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
+with open('./models/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased')
@@ -169,7 +169,7 @@ model.to(device)
 
 
 # Load the PyTorch model from the .bin file
-model = torch.load('./Results/Mixed_1000_pytorch_distilbert.bin',map_location=torch.device('cpu'))
+model = torch.load('./models/Mixed_1000_pytorch_distilbert.bin',map_location=torch.device('cpu'))
 
 
 # %% [markdown]

@@ -176,7 +176,7 @@ def load_val_raw():
 # init_data_same()
 # dual_label_csv()
 # dual_label_csv_1500()
-import pickle
-with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
-    df = pickle.load(f)
-print(df.head)
+# import pickle
+# with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+#     df = pickle.load(f)
+# print(df.head)
