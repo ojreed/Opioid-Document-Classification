@@ -33,7 +33,7 @@ device = 'cuda' if cuda.is_available() else 'cpu'
 
 # %%
 import pickle
-with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+with open('./CSV_raw_dual.pkl', 'rb') as f:
     df = pickle.load(f)
 # # Converting the codes to appropriate categories using a dictionary
 
