@@ -58,7 +58,7 @@ def dual_label_csv_1500():
         raw_z.append(item[2])
     with open('./CSV_raw_dual_1500.pkl', 'wb') as f:
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label 1': raw_y, 'Raw Label 2': raw_z}), f)
-    print(len(raw_X))
+    print(raw_X)
     return
 
 def load_train_dataset():

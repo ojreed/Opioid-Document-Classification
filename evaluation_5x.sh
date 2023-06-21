@@ -55,19 +55,18 @@ python Mixed_Labeled_BioBERT_R.py 25 1e-04 Mixed_1500_R3 > Mixed_1500_R3.log
 python Mixed_Labeled_BioBERT_R.py 25 1e-04 Mixed_1500_R4 > Mixed_1500_R4.log
 python Mixed_Labeled_BioBERT_R.py 25 1e-04 Mixed_1500_R5 > Mixed_1500_R5.log
 
-python s2_1000_BioBERT.py 25 1e-04 s2_1000 > s2_1000.log
 
-# python s1_1000_BioBERT_R.py 25 1e-04 s1_1000_R1 > s1_1000_R1.log
-# python s1_1000_BioBERT_R.py 25 1e-04 s1_1000_R2 > s1_1000_R2.log
-# python s1_1000_BioBERT_R.py 25 1e-04 s1_1000_R3 > s1_1000_R3.log
-# python s1_1000_BioBERT_R.py 25 1e-04 s1_1000_R4 > s1_1000_R4.log
-# python s1_1000_BioBERT_R.py 25 1e-04 s1_1000_R5 > s1_1000_R5.log
+python s1_1500_BioBERT_R.py 25 1e-04 s1_1000_R1 > s1_1000_R1.log
+python s1_1500_BioBERT_R.py 25 1e-04 s1_1000_R2 > s1_1000_R2.log
+python s1_1500_BioBERT_R.py 25 1e-04 s1_1000_R3 > s1_1000_R3.log
+python s1_1500_BioBERT_R.py 25 1e-04 s1_1000_R4 > s1_1000_R4.log
+python s1_1500_BioBERT_R.py 25 1e-04 s1_1000_R5 > s1_1000_R5.log
 
-# python s2_1000_BioBERT_R.py 25 1e-04 s2_1000_R1 > s2_1000_R1.log
-# python s2_1000_BioBERT_R.py 25 1e-04 s2_1000_R2 > s2_1000_R2.log
-# python s2_1000_BioBERT_R.py 25 1e-04 s2_1000_R3 > s2_1000_R3.log
-# python s2_1000_BioBERT_R.py 25 1e-04 s2_1000_R4 > s2_1000_R4.log
-# python s2_1000_BioBERT_R.py 25 1e-04 s2_1000_R5 > s2_1000_R5.log
+python s2_1500_BioBERT_R.py 25 1e-04 s2_1000_R1 > s2_1000_R1.log
+python s2_1500_BioBERT_R.py 25 1e-04 s2_1000_R2 > s2_1000_R2.log
+python s2_1500_BioBERT_R.py 25 1e-04 s2_1000_R3 > s2_1000_R3.log
+python s2_1500_BioBERT_R.py 25 1e-04 s2_1000_R4 > s2_1000_R4.log
+python s2_1500_BioBERT_R.py 25 1e-04 s2_1000_R5 > s2_1000_R5.log
 
 
 deactivate

@@ -2,16 +2,13 @@
 import pandas as pd
 import torch
 import transformers
-from torch.utils.data import Dataset, DataLoader
+from transformers import pipeline, RobertaTokenizerFast
+from transformers import RobertaTokenizer, RobertaModel
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 from transformers import AutoTokenizer, AutoModel
+from torch.utils.data import Dataset, DataLoader
 import data_functions as data
-
-
-"""
-USE: Main training run for a mixed label bioBERT text classifcation model with the mixed label loss function 
-
-"""
+# import wandb
 
 # %%
 # Setting up the device for GPU usage
@@ -33,11 +30,9 @@ device = 'cuda' if cuda.is_available() else 'cpu'
 
 # %%
 import pickle
-with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+with open('../CSV_raw_dual_1500.pkl', 'rb') as f:
     df = pickle.load(f)
 # # Converting the codes to appropriate categories using a dictionary
-
-
 
 encode_dict = {}
 
@@ -46,9 +41,14 @@ def encode_cat(x):
         encode_dict[x]=len(encode_dict)
     return encode_dict[x]
 
-df['ENCODE_CAT_1'] = df['Raw Label 1'].apply(lambda x: encode_cat(x))
-df['ENCODE_CAT_2'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
+# df['ENCODE_CAT_1'] = df['Raw Label 1'].apply(lambda x: encode_cat(x))
+# df['ENCODE_CAT_2'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
 
+
+df['ENCODE_CAT'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
+
+# %%
+df.head()
 
 # %% [markdown]
 # Training Settings
@@ -92,7 +92,7 @@ class Triage(Dataset):
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
-            'targets': torch.tensor([self.data.ENCODE_CAT_1[index],self.data.ENCODE_CAT_2[index]], dtype=torch.long)
+            'targets': torch.tensor(self.data.ENCODE_CAT[index], dtype=torch.long)
         } 
     
     def __len__(self):
@@ -158,33 +158,10 @@ model.to(device)
 # %% [markdown]
 # Loss function and Optimizer
 
-import torch.nn as nn
-
-
-
-class CustomLoss(nn.Module):
-    def __init__(self):
-        super(CustomLoss, self).__init__()
-
-    def forward(self, outputs, labels):
-        mixed_labels = torch.zeros((labels.size(0), 5))
-        for i in range(labels.size(0)):
-            for j in range(5):
-                if (j == labels[i,0]): 
-                    mixed_labels[i,j] +=.5
-                if (j == labels[i,1]): 
-                    mixed_labels[i,j] +=.5
-        loss = nn.CrossEntropyLoss()(outputs, mixed_labels.to(outputs.device))
-        return loss
-
-
 # %%
 # Creating the loss function and optimizer
-# loss_function = torch.nn.CrossEntropyLoss()
-loss_function = CustomLoss()
+loss_function = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(params =  model.parameters(), lr=LEARNING_RATE)
-
-
 
 # %% [markdown]
 # Training functions
@@ -193,9 +170,7 @@ optimizer = torch.optim.Adam(params =  model.parameters(), lr=LEARNING_RATE)
 # Function to calcuate the accuracy of the model
 
 def calcuate_accu(big_idx, targets):
-    n_correct = 0
-    for index in range(0, len(big_idx)):
-        n_correct += max(big_idx[index] == targets[index,0],big_idx[index] == targets[index,1])
+    n_correct = (big_idx==targets).sum().item()
     return n_correct
 
 # %%
@@ -308,8 +283,8 @@ print("Accuracy on test data = %0.2f%%" % acc)
 
 # %%
 # Saving the files for re-use
-output_model_file = './models/' + str(RUN_NAME) + '_pytorch_distilbert.bin'
-output_vocab_file = './models/' + str(RUN_NAME) + '_vocab_distilbert.bin'
+output_model_file = '../models/' + str(RUN_NAME) + '_pytorch_distilbert.bin'
+output_vocab_file = '../models/' + str(RUN_NAME) + '_vocab_distilbert.bin'
 
 model_to_save = model
 torch.save(model_to_save, output_model_file)

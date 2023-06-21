@@ -30,7 +30,7 @@ device = 'cuda' if cuda.is_available() else 'cpu'
 
 # %%
 import pickle
-with open('./CSV_raw_dual.pkl', 'rb') as f:
+with open('../CSV_raw_dual_1500.pkl', 'rb') as f:
     df = pickle.load(f)
 # # Converting the codes to appropriate categories using a dictionary
 
@@ -283,8 +283,8 @@ print("Accuracy on test data = %0.2f%%" % acc)
 
 # %%
 # Saving the files for re-use
-output_model_file = './models/' + str(RUN_NAME) + '_pytorch_distilbert.bin'
-output_vocab_file = './models/' + str(RUN_NAME) + '_vocab_distilbert.bin'
+output_model_file = '../models/' + str(RUN_NAME) + '_pytorch_distilbert.bin'
+output_vocab_file = '../models/' + str(RUN_NAME) + '_vocab_distilbert.bin'
 
 model_to_save = model
 torch.save(model_to_save, output_model_file)
