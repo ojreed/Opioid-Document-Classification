@@ -8,9 +8,6 @@ from sklearn.model_selection import train_test_split
 USE: File full of useful dataset manipulation functions to reformat the dataset into different formats
 """
 
-'''
-Creates PKL files from dataset with test/train/val split datasets of the first 1000 documents
-'''
 def init():
     # init master dataset
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1) #init dataset from csv
@@ -34,10 +31,7 @@ def init():
         pickle.dump(val_dataset, f)
     with open('./full_dataset.pkl', 'wb') as f:
         pickle.dump(full_dataset, f)
-
-'''
-Creates and PKLs a dual labeled CSV of the first 1000 documents
-''' 
+        
 def dual_label_csv():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=2,returnLabel=2)
     print("Init Full Dataset")
@@ -52,9 +46,6 @@ def dual_label_csv():
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label 1': raw_y, 'Raw Label 2': raw_z}), f)
     return
 
-'''
-Creates and PKLs a dual labeled CSV of all 1500 documents
-'''
 def dual_label_csv_1500():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_1500_Samples.csv', data_dir='./opi/500_samples',num_labels=2,returnLabel=2)
     print("Init Full Dataset")
@@ -71,10 +62,6 @@ def dual_label_csv_1500():
     print(raw_X)
     return
 
-
-"""
-Set of helper functions to load in datasets from PKL
-"""
 def load_train_dataset():
     with open('./train_dataset.pkl', 'rb') as f:
         train_dataset = pickle.load(f)
@@ -96,17 +83,11 @@ def load_full_dataset():
     return full_dataset
 
 
-
-"""
-Helper function to shrink size of dataset to make it easier to make 'toy' versions of the data
-"""
 def trim_dataset(dataset, percent):
     dataset_size = int(percent * len(dataset))
     return torch.utils.data.random_split(dataset, [dataset_size, len(dataset) - dataset_size])[0]
 
-'''
-Creates PKL files from dataset with test/train/val split datasets of the first 500 documents
-'''
+
 def init_data_trad():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1) #init dataset from csv
     print("Init Full Dataset")
@@ -130,9 +111,7 @@ def init_data_trad():
         pickle.dump([x_val,y_val], f)
     with open('./full_dataset.pkl', 'wb') as f:
         pickle.dump(full_dataset, f)
-'''
-Creates and PKLs a single labeled (from the first label set) CSV of the first 1000 documents
-''' 
+
 def init_data_csv():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1) #init dataset from csv
     print("Init Full Dataset")
@@ -145,9 +124,6 @@ def init_data_csv():
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label': raw_y}), f)
     return
 
-'''
-Creates and PKLs a single labeled (from the first label set that ARE NOT in the second) CSV from the first 1000 documents
-''' 
 def init_data_diff():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1, returnLabel=2) #init dataset from csv
     print("Init Full Dataset")
@@ -162,9 +138,6 @@ def init_data_diff():
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label': raw_y}), f)
     return
 
-'''
-Creates and PKLs a single labeled (from the first label set that ARE in the second) CSV from the first 1000 documents
-''' 
 def init_data_same():
     full_dataset = op.OPI_DataSet_Final(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1, returnLabel=2) #init dataset from csv
     print("Init Full Dataset")
@@ -178,11 +151,7 @@ def init_data_same():
     with open('./CSV_same.pkl', 'wb') as f:
         pickle.dump(pd.DataFrame({'Text': raw_X, 'Raw Label': raw_y}), f)
     return
-
-"""
-Set of helper functions to load in CSVs from PKL
-"""
-  
+        
 def load_csv():
     with open('./CSV_raw.pkl', 'rb') as f:
         pd = pickle.load(f)
@@ -203,3 +172,12 @@ def load_val_raw():
         val_dataset = pickle.load(f)
     return val_dataset
 
+
+# init_data_trad()
+# init_data_same()
+# dual_label_csv()
+# dual_label_csv_1500()
+# import pickle
+# with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+#     df = pickle.load(f)
+# print(df.head)

@@ -20,8 +20,13 @@ import data_functions as data
 
 
 
+
 """
-USE: Generates 5x5 real_pred matrix for a model
+USE: Generates 5x5 real_pred matrix for a model specifically for single label set models
+
+This allows us to better understand where our missed predictions are coming from and if there is a freqent misclassifcation we see in our data
+
+The user should change the input files for tokenizer model and data csv
 """
 
 

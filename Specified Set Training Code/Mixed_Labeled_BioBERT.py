@@ -33,10 +33,11 @@ device = 'cuda' if cuda.is_available() else 'cpu'
 
 # %%
 import pickle
-with open('../CSV_raw_dual.pkl', 'rb') as f:
+with open('../CSV_raw_dual_1500.pkl', 'rb') as f:
     df = pickle.load(f)
 # # Converting the codes to appropriate categories using a dictionary
 
+print(df.head)
 
 
 encode_dict = {}
@@ -49,6 +50,7 @@ def encode_cat(x):
 df['ENCODE_CAT_1'] = df['Raw Label 1'].apply(lambda x: encode_cat(x))
 df['ENCODE_CAT_2'] = df['Raw Label 2'].apply(lambda x: encode_cat(x))
 
+print(encode_dict)
 
 # %% [markdown]
 # Training Settings
@@ -114,6 +116,8 @@ print("TEST Dataset: {}".format(test_dataset.shape))
 training_set = Triage(train_dataset, tokenizer, MAX_LEN)
 testing_set = Triage(test_dataset, tokenizer, MAX_LEN)
 
+print(training_set)
+
 # %%
 train_params = {'batch_size': TRAIN_BATCH_SIZE,
                 'shuffle': True,
@@ -168,6 +172,7 @@ class CustomLoss(nn.Module):
 
     def forward(self, outputs, labels):
         mixed_labels = torch.zeros((labels.size(0), 5))
+        
         for i in range(labels.size(0)):
             for j in range(5):
                 if (j == labels[i,0]): 
@@ -211,7 +216,6 @@ def train(epoch):
         ids = data['ids'].to(device, dtype = torch.long)
         mask = data['mask'].to(device, dtype = torch.long)
         targets = data['targets'].to(device, dtype = torch.long)
-
         outputs = model(ids, mask)
         loss = loss_function(outputs, targets)
         tr_loss += loss.item()

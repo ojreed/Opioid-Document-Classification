@@ -3,10 +3,10 @@ import pandas as pd
 import pickle
 
 """
-USE: Find label set discrepency breakdown and generate 5x5 relation chart
+USE: Find label set discrepency breakdown and generate 5x5 relation chart this lets us compare the two label sets
 """
 
-mode = 0
+mode = 0#mode controls if we need to setup a new dataset or not
 
 def encode_cat(x):
 	if x not in encode_dict.keys():
@@ -14,6 +14,7 @@ def encode_cat(x):
 	return encode_dict[x]
 
 
+#initalize data
 if mode == 1:
 	full_dataset = op.OPI_DataSet_Dual(data_csv='./opi_2/All_Samples.csv', data_dir='./opi/500_samples',num_labels=1) #init dataset from csv
 	print("Init Full Dataset")
@@ -33,8 +34,8 @@ if mode == 1:
 	with open('./CSV_raw_stats.pkl', 'wb') as f:
 		pickle.dump(pd.DataFrame(df), f)
 if mode == 0:
-	with open('./CSV_raw_stats.pkl', 'rb') as f:
-	    df = pickle.load(f)
+	with open('./CSV_raw_dual_1500.pkl', 'rb') as f:
+		df = pickle.load(f)
 
 
 
@@ -58,7 +59,13 @@ full_agree = []
 
 one_to_two = {}
 
-
+'''
+The following logic computes the breakdown of which documents are labeled what in each label set
+It will generate 3 5x5 grids, one for training, testing, and the full dataset giving the count of documents that are labeled A in set 1 and B in set 2
+This is used for analysis to determine topical comparision of the two datasets. This lets us better understand if we have skewed topics 
+	and any other significant differences between the two label sets
+'''
+#compute on the training dataset
 for index, row in train_dataset.iterrows():
 	if row["Raw Label 1"] not in one_to_two.keys():
 		one_to_two[row["Raw Label 1"]] = {}
@@ -85,7 +92,7 @@ for index, row in train_dataset.iterrows():
 		train_stats_2[row["Raw Label 2"]] = 1
 	train_agree.append(row["Raw Label 1"] == row["Raw Label 2"])
 	full_agree.append(row["Raw Label 1"] == row["Raw Label 2"])
-
+#compute on the testing dataset
 for index, row in test_dataset.iterrows():
 	if row["Raw Label 1"] not in one_to_two.keys():
 		one_to_two[row["Raw Label 1"]] = {}

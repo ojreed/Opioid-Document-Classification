@@ -11,11 +11,7 @@ import os
 USE: datastructures representing the 500 and 1000 size datasets in the pytorch dataset format 
 """
 
-"""
-class defining a dataset for the first 500 documents
-	setups up getitem and length for pytorch implementation
 
-"""
 class OPI_DataSet_500(Dataset):
 	def __init__(self, data_csv, data_dir, transform=None,num_labels=1):
 		self.label_csv = pd.read_csv(data_csv) #FOR US: "./opi/Liu_500_sample.csv")
@@ -47,7 +43,9 @@ class OPI_DataSet_500(Dataset):
 			f = open(rawText, "r", encoding="utf8",errors='ignore')
 			f.seek(0)
 			for line in f: # goes through all lines
+				# print(line)
 				for word in line.lower().split(): # goes throuugh all words per line
+					# pureWord = word.strip("[]}{,.\\/!@#$%^&*()<>#;?''" '"')
 					pureWord = word
 					docText += pureWord
 					docText += " "
@@ -62,11 +60,7 @@ class OPI_DataSet_500(Dataset):
 
 		return (sample['text'], sample['labels'][0])
 
-"""
-class defining a dataset for all 1500 documents
-	setups up getitem and length for pytorch implementation
 
-"""
 class OPI_DataSet_Final(Dataset):
 	def __init__(self, data_csv, data_dir, transform=None,num_labels=1, returnLabel=1):
 		self.label_csv = pd.read_csv(data_csv) #FOR US: "./opi/Liu_500_sample.csv")
@@ -127,5 +121,11 @@ class OPI_DataSet_Final(Dataset):
 
 
 
+#test code
+# opi_dataset = OPI_DataSet(data_csv='./opi/Liu_500_sample.csv',
+# 									data_dir='./opi/500_samples',num_labels=1)
+
+# for i in range(len(opi_dataset)):
+# 	print(opi_dataset[i])
 
 

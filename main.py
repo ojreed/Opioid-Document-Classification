@@ -22,12 +22,18 @@ import data_functions as data
 with open('./Results/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
+"""
+This main file serves as an example of how to use this model to classify text. The text will prompt the user to either input raw text or a file name, 
+    then the model will return a prediction. 
+
+For users hoping to implment in an alternative way with one of our trained models keep all code before line 83 
+    and modify the use case of "prediction = get_prediction(text)"
+"""
+
 
 class HFClass(torch.nn.Module):
     def __init__(self):
         super(HFClass, self).__init__()
-        # self.l1 = DistilBertModel.from_pretrained("distilbert-base-uncased")
-        # self.l1 = RobertaModel.from_pretrained('roberta-base')
         self.l1 = AutoModel.from_pretrained('pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb')
         self.pre_classifier = torch.nn.Linear(768, 768)
         self.dropout = torch.nn.Dropout(0.3)

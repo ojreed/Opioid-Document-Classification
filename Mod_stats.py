@@ -19,9 +19,12 @@ from transformers import AutoTokenizer, AutoModel
 import data_functions as data
 
 
-
 """
-USE: Generates 5x5 real_pred matrix for a model
+USE: Generates 5x5 real_pred matrix for a model specifically for dual label set models
+
+This allows us to better understand where our missed predictions are coming from and if there is a freqent misclassifcation we see in our data
+
+The user should change the input files for tokenizer model and data csv
 """
 
 
@@ -72,6 +75,7 @@ VALID_BATCH_SIZE = 15
 with open('./models/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
+#alternative tokenizers
 # tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased')
 # tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base', max_len=512)
 # tokenizer = AutoTokenizer.from_pretrained('pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb')
