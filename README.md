@@ -31,7 +31,7 @@ This file generates a real x predicted matrix for a trained model and tokenizer 
 ## Training Code
 
 ### Mixed_Labeled_BioBERT.py
-Specific file for training and testing a BioBERT model with 25 epochs and a learning rate of 1e-04 on a the mixed label set. 
+Specific file for training and testing a `BioBERT` model with 25 epochs and a learning rate of 1e-04 on a the mixed label set. 
 
 ## Suport Files
 
