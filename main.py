@@ -17,9 +17,11 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 from transformers import AutoTokenizer, AutoModel
 import data_functions as data
+from torch import cuda
+device = 'cuda' if cuda.is_available() else 'cpu'
 
 
-with open('./Results/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
+with open('./models/Mixed_1000_vocab_distilbert.bin', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 """
@@ -31,13 +33,14 @@ For users hoping to implment in an alternative way with one of our trained model
 """
 
 
+
 class HFClass(torch.nn.Module):
     def __init__(self):
         super(HFClass, self).__init__()
         self.l1 = AutoModel.from_pretrained('pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb')
         self.pre_classifier = torch.nn.Linear(768, 768)
         self.dropout = torch.nn.Dropout(0.3)
-        self.classifier = torch.nn.Linear(768, len(encode_dict))
+        self.classifier = torch.nn.Linear(768, 5)
 
     def forward(self, input_ids, attention_mask):
         output_1 = self.l1(input_ids=input_ids, attention_mask=attention_mask)
@@ -52,9 +55,8 @@ class HFClass(torch.nn.Module):
 
 # Load the PyTorch model from the .bin file
 model = HFClass()
+model = torch.load('./models/Mixed_1000_pytorch_distilbert.bin', map_location=torch.device('cpu'))
 model.to(device)
-model.load_state_dict(torch.load('./Results/Mixed_1000_pytorch_distilbert.bin', map_location=torch.device('cpu')))
-
 
 def get_prediction(text):
     # Tokenize the input text
