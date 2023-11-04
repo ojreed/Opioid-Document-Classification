@@ -2,7 +2,7 @@
 
 This purpose of this repository is to train, test, and implement text classification models for the OIDA dataset. Training documents and trained models are linked here:
 
-[INSERT LINK]
+[[Google Drive](https://drive.google.com/drive/folders/1RuowEg18UE9adshIb_eTsGP8uM58-Mkz?usp=sharing)]
 
 # Usage: 
 ## Deployment
